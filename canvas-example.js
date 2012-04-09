@@ -2,8 +2,8 @@
 var canvas = document.getElementById('myCanvas');
 var ctx = canvas.getContext('2d');
 
-// create an empty array to hold circles
-var circles = [ ];
+// create an empty array to hold squares
+var squares = [ ];
 
 
 // this function gets run every 10ms to draw a new frame and update the state of the game
@@ -13,38 +13,38 @@ function draw()
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Ext.each will call drawCircle once for each object in the circle array
-    Ext.each(circles, drawCircle);
+    Ext.each(squares, drawSquare);
 }
 
-function drawCircle(circle)
+function drawSquare(square)
 {
     // set the fill color to red
-    ctx.fillStyle="#FF0000";
+    ctx.fillStyle="#336633";
     
-    // draw a circle and fill it in
+    // draw a square and fill it in
     ctx.beginPath();
-    ctx.arc(circle.x, circle.y, circle.r, 0, Math.PI*2, true);
+    ctx.line(square.x, square.y, square.r, 0, Math.PI*2, true);
     ctx.closePath();
     
     ctx.fill();
     
-    // update ball's position
-    circle.x = circle.x + circle.dx;
-    circle.y = circle.y + circle.dy;
+    // update box's position
+    square.x = square.x + square.dx;
+    square.y = square.y + square.dy;
+  
     
-    
-    // check if ball is in contact with right or left edge
-    if(circle.x >= canvas.width - circle.r || circle.x <= circle.r)
+    // check if box is in contact with right or left edge
+    if(square.x >= canvas.width - square.r || square.x <= square.r)
     {
         // flip the sign on dx to change direction between left/right
-        circle.dx = circle.dx * -1;
+        square.dx = square.dx * -1;
     }
     
     // check if ball is in contact with right or left edge
-    if(circle.y >= canvas.height - circle.r || circle.y <= circle.r)
+    if(square.y >= canvas.height - square.r || square.y <= square.r)
     {
         // flip the sign on dy to change direction between up/down
-        circle.dy = circle.dy * -1;
+        square.dy = square.dy * -1;
     }   
 }
 
@@ -55,7 +55,7 @@ Ext.getBody().on('keydown', function(ev) {
     
     if(ev.keyCode == 32) // space bar
     {
-        circles.push({
+        squares.push({
             r: 15
             ,x: 50
             ,y: 50
@@ -63,7 +63,7 @@ Ext.getBody().on('keydown', function(ev) {
             ,dy: Math.random() * 10 - 5
         });
         
-        //console.log(circles);
+        //console.log(squares);
     }
 });
 
